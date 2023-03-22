@@ -1,0 +1,93 @@
+#signupMainContainer {
+    width: 100%;
+    height: 100vh;
+    top: 0px;
+    z-index: 100002;
+    backdrop-filter: blur(15px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+}
+
+#signupContainer {
+    background-color: #1b2636;
+    padding: 2%;
+    text-align: center;
+    width: 40%;
+    border-radius: 3px;
+    position: relative;
+    color: white;
+    box-shadow: rgba(255, 255, 255, 0.25) 0px 6px 12px -2px, rgba(255, 255, 255, 0.25) 0px 3px 7px -3px;
+}
+
+#signupContainer>form {
+    display: grid;
+    width: 100%;
+}
+
+#signupContainer>h2 {
+    margin-bottom: 10%;
+    margin-top: 5%;
+    font-size: 2rem;
+}
+
+#signupContainer>form>input {
+    width: 100%;
+    padding: 3%;
+    font-size: 1.1rem;
+    margin: 1% auto;
+    outline: none;
+    border: none;
+    background-color: #c9c0c0;
+    text-align: center;
+}
+
+#signupContainer>form>input:focus::placeholder {
+    visibility: hidden;
+    color: white;
+}
+
+#signupContainer>form>input::placeholder {
+    color: grey;
+}
+
+#signupContainer>form>div>button {
+    padding: 2%;
+    border: none;
+    outline: none;
+    font-size: 1.1rem;
+    margin-top: 10%;
+    margin-bottom: 4%;
+    background-color: #eff0f4;
+    color: #131a28;
+    font-weight: 500;
+    width: 100%;
+
+}
+
+#signupContainer>form>div {
+    display: flex;
+    gap: 2%;
+    justify-content: center;
+}
+
+#closeModal {
+    position: absolute;
+    top: 5%;
+    font-size: 1.3rem;
+    right: 5%;
+}
+
+
+@media screen and (max-width:800px) {
+    #signupContainer {
+        width: 75%;
+    }
+}
+
+@media screen and (max-width:500px) {
+    #signupContainer {
+        width: 95%;
+    }
+}

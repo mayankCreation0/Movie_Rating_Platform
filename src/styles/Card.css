@@ -1,0 +1,11 @@
+.moviecard-btn{
+
+        background-image: linear-gradient(to top, black 50%, transparent 50%);
+        background-size: 100% 200%;
+        background-position: top;
+        transition: background-position 0.2s ease-in-out;
+}
+.moviecard-btn:hover{
+     background-position: bottom;
+     color: red;
+} 
