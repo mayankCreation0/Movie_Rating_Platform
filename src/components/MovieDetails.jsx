@@ -277,6 +277,7 @@ const MovieDetailsPage = () => {
                             </Box>
                         </Flex>
                     </Box>
+                    <footer/>
                 </>
             }
         </>
