@@ -247,8 +247,7 @@ const MovieDetailsPage = () => {
                                                     {comments.map((review) => (
                                                         <Box key={review._id} p="4" bg="gray.200">
                                                             <Text fontStyle="italic" mb="2">
-                                                                {movie.rating.userid} rated it{" "}
-
+                                                                {cookie.get('userid') === review.userId ? "you rated it" : null } 
                                                             </Text>
                                                             <Text>{review.review}</Text>
                                                             {movie.rating.map((review) => {
