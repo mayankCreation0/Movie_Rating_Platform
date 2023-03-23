@@ -27,7 +27,7 @@ const MovieDetailsPage = () => {
     const [comments, setComments] = useState([]);
     const toast = useToast();
     const cookie = new Cookies()
-    
+
     const fetchdata = async () => {
         setLoading(true)
         const data = await axios(`https://amber-hippo-ring.cyclic.app/movies/${id}`)
@@ -46,21 +46,24 @@ const MovieDetailsPage = () => {
     const handleReviewChange = (event) => {
         setReviews(event.target.value);
     };
-    const handleDeleteReview = async() => {
+    const handleDeleteReview = async () => {
         try {
+            setLoading(true);
             const userid = cookie.get('userid')
             const movieId = id;
             await axios.delete(`https://amber-hippo-ring.cyclic.app/movies/delete/${userid}`, {
                 data: {
                     movieId
-                }})
+                }
+            })
             // alert(res)
+            setLoading(false)
             toast({
                 title: 'Deleted Successfully',
                 status: 'success',
                 duration: 5000,
                 isClosable: true,
-            }); 
+            });
             fetchdata();
         } catch (error) {
             toast({
@@ -77,6 +80,7 @@ const MovieDetailsPage = () => {
 
         // send rating and review to backend
         try {
+            setLoading(true)
             const movieId = id;
             const userid = cookie.get('userid')
             {
@@ -84,13 +88,14 @@ const MovieDetailsPage = () => {
                 await axios.put(`https://amber-hippo-ring.cyclic.app/movies/rate/${userid}`, {
                     movieId, review
                 })
-                console.log("rating" , movie)
+                console.log("rating", movie)
             }
             const review = reviews
             const reviewstatus = await axios.put(`https://amber-hippo-ring.cyclic.app/movies/review/${userid}`, {
                 movieId, review
             })
-            console.log("review" , reviewstatus)
+            setLoading(false)
+            console.log("review", reviewstatus)
             if (reviewstatus.data.error === 'You have already reviewed this movie') {
                 toast({
                     title: 'You have already rated & reviewed this movie!',
@@ -100,7 +105,7 @@ const MovieDetailsPage = () => {
                 });
                 fetchdata();
             }
-            else if (reviewstatus.data.message === "Review added successfully"){
+            else if (reviewstatus.data.message === "Review added successfully") {
                 toast({
                     title: "Rating submitted.",
                     description: `You gave ${rating} stars and wrote: ${review}`,
@@ -126,9 +131,9 @@ const MovieDetailsPage = () => {
             {loading ? <Spinner position={"fixed"} color={"red"} top={"50%"} /> :
                 <>
                     <Navbar />
-                    <Box p="4" bg={"blackAlpha.400"}  m={0} padding={0}>
+                    <Box p="4" bg={"blackAlpha.400"} m={0} padding={0}>
                         <Flex align="center" mb="4" >
-                            <Box mr="4"  borderRadius="lg" overflow="hidden"height={"600px"} width={"50%"} boxShadow="lg">
+                            <Box mr="4" borderRadius="lg" overflow="hidden" height={"600px"} width={"50%"} boxShadow="lg">
                                 <Image src={movie.img} alt={movie.title} width="100%" height={"600px"} objectFit="cover" />
                             </Box>
 
@@ -232,7 +237,7 @@ const MovieDetailsPage = () => {
                                                     onClick={handleSubmit}
                                                     mt="2"
                                                 >
-                                                    Submit
+                                                    Submit{loading ? <Spinner /> : null}
                                                 </Button>
                                             </Box>
                                             {comments.length > 0 ? (
@@ -241,21 +246,21 @@ const MovieDetailsPage = () => {
                                                         <Box key={review._id} p="4" bg="gray.200">
                                                             <Text fontStyle="italic" mb="2">
                                                                 {movie.rating.userid} rated it{" "}
-                                                                
+
                                                             </Text>
                                                             <Text>{review.review}</Text>
                                                             {movie.rating.map((review) => {
                                                                 return (
                                                                     <>
-                                                                    {cookie.get('userid') === review.userId ?
-                                                                    <Button
-                                                                        size="sm"
-                                                                        colorScheme="red"
-                                                                        mt="2"
-                                                                        onClick={handleDeleteReview}
-                                                                    >
-                                                                        Delete
-                                                                    </Button> : null}
+                                                                        {cookie.get('userid') === review.userId ?
+                                                                            <Button
+                                                                                size="sm"
+                                                                                colorScheme="red"
+                                                                                mt="2"
+                                                                                onClick={handleDeleteReview}
+                                                                            >
+                                                                                Delete{loading ? <Spinner /> : null}
+                                                                            </Button> : null}
                                                                     </>
                                                                 );
                                                             })}
@@ -278,98 +283,3 @@ const MovieDetailsPage = () => {
 };
 
 export default MovieDetailsPage;
-
-{/* <Box bg="black" color="white" p="4" height={"100vh"}>
-                    <Flex align="center" mb="4">
-                        <Box mr="4" >
-                            <img src={movie.img} alt={movie.title} width="100%" />
-                        </Box>
-                        <Box bg={"yellow"}>
-                            <Heading size="lg">{movie.title}</Heading>
-                            <Text>{movie.storyline}</Text>
-                            <Text>
-                                <strong>Genres:</strong> {movie.genres.join(", ")}
-                            </Text>
-                            <Text>
-                                <strong>Release year:</strong> {movie.releaseYear}
-                            </Text>
-                            <Text>
-                                <strong>Duration:</strong> {movie.duration}
-                            </Text>
-                            <Text>
-                                <strong>IMDB rating:</strong> {movie.imdbRating}
-                            </Text>
-                            <Text>
-                                <strong>Total counting:</strong> {movie.totalCounting}
-                            </Text>
-                        </Box>
-                    </Flex>
-                    <Flex mb="4">
-                        <Box mr="4">
-                            <Text>Rate this movie:</Text>
-                            <Flex align="center">
-                                {[...Array(5)].map((_, index) => (
-                                    <Box key={index} as="label" mx="1">
-                                        <input
-                                            type="radio"
-                                            name="rating"
-                                            value={index + 1}
-                                            onChange={() => handleRatingChange(index + 1)}
-                                        />
-                                        <StarIcon
-                                            color={index + 1 <= rating ? "yellow" : "gray"}
-                                            size={24}
-                                            cursor="pointer"
-                                        />
-                                    </Box>
-                                ))}
-                            </Flex>
-                        </Box>
-                        <Box>
-                            <Text>Write a review:</Text>
-                            <form onSubmit={handleSubmit}>
-                                <Input
-                                    value={reviews}
-                                    onChange={handleReviewChange}
-                                    placeholder="Type your review here"
-                                    size="sm"
-                                    mb="2"
-                                />
-                                <Button type="submit" size="sm">
-                                    Submit
-                                </Button>
-                            </form>
-                        </Box>
-                    </Flex>
-                    <Box>
-                        <Heading size="md" mb="2">
-                            Reviews
-                        </Heading>
-                        {reviews.length > 0 ? (
-                            <Box>
-                                {reviews.map((review) => (
-                                    <Flex key={review._id} mb="2">
-                                        <Box flex="1">
-                                            <Text>{review.review}</Text>
-                                            <Text fontSize="sm" color="gray.500">
-                                                {review.userId} - {review.date}
-                                            </Text>
-                                        </Box>
-                                        <Box>
-                                            <Button
-                                                variant="ghost"
-                                                size="sm"
-                                                colorScheme="red"
-                                                onClick={() => handleDeleteReview(review._id)}
-                                            >
-                                                Delete
-                                            </Button>
-                                        </Box>
-                                    </Flex>
-                                ))}
-                            </Box>
-                        ) : (
-                            <Text>No reviews yet.</Text>
-                        )}
-                    </Box>
-                </Box> */}
