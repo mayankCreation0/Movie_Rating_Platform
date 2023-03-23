@@ -16,14 +16,14 @@ import "../styles/Login.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import Cookies from 'universal-cookie';
 import { Context } from "../context/Context";
+import Cookies from "universal-cookie";
+
 // import png from ' ../assets/Gmail_Logo_16px.png';
 
 const LoginPage = () => {
     const navigate = useNavigate()
-    const cookies = new Cookies();
-    const { setAuth } = useContext(Context)
+    const { setAuth, passid } = useContext(Context)
     const [input, setInput] = useState({
         email: "",
         password: "",
@@ -31,6 +31,7 @@ const LoginPage = () => {
     const [loading, setLoading] = useState(false);
     const toast = useToast();
     const [showPassword, setShowPassword] = useState(false);
+    const cookies = new Cookies();
     const handleChange = (e) => {
         setInput({
             ...input,
@@ -49,12 +50,14 @@ const LoginPage = () => {
                 "http://localhost:8080/users/login",
                 input
             );
-            // console.log(res.data);
+            console.log("res" , res.data.data._id);
             if (res.data) {
-                // cookies.set('token', res.data.token, { path: '/' });
-
+                cookies.set('userid', res.data.data._id, { path: '/' });
+                console.log(passid)
+                console.log(cookies.get('userid'))
                 setTimeout(() => {
                     // console.log(cookies.get('token'))
+                    navigate(`/movies/${passid}`);
                 }, 1000);
                 toast({
                     title: 'LoggedIn Sucessfully.',
@@ -64,7 +67,6 @@ const LoginPage = () => {
                     isClosable: true,
                 })
                 setLoading(false);
-                navigate('/');
                 setAuth(true);
             }
             else {
@@ -88,7 +90,7 @@ const LoginPage = () => {
         }
     };
     return (
-        <div id="login" style={{ border: "1px solid red" }}>
+        <div id="login" >
             <>
                 <form
                     onSubmit={handleSubmit}

@@ -15,7 +15,7 @@ const Navbar = () => {
         setAuth(false)
     }
     const navigateto = () => {
-        navigate('/login')
+        navigate('/')
     }
     const closeMobileMenu = () => setClick(false);
     return (
@@ -23,7 +23,7 @@ const Navbar = () => {
             <div className="header">
                 <div className="logo-nav">
                     <div className="logo-container">
-                        <Link to="banner">
+                        <Link to="/">
                             <img src="https://w7.pngwing.com/pngs/90/19/png-transparent-film-cinema-movies-miscellaneous-text-logo-thumbnail.png" alt="logo" style={{width:"80px" , backgroundColor:"black", borderRadius:"20px"}}/>
                         </Link>
                     </div>
@@ -61,7 +61,7 @@ const Navbar = () => {
                         </Link>
                     </li>
                     <li onClick={closeMobileMenu}>
-                        <Link to="login" >
+                        <Link to="/" >
                             <button style={{ border: "1px solid white" }} className="signup-btn" onClick={auth ? refreshPage : navigateto}>{auth ? "Logout" : "Login"}</button>
                         </Link>
                     </li>

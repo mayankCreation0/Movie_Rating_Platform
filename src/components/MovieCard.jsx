@@ -6,11 +6,22 @@ import '../styles/Card.css'
 import { Outlet, useNavigate } from "react-router-dom";
 
 
-const MovieCard = ({ title, releaseYear, genres, duration, imdbRating, img, id }) => {
+const MovieCard = ({ title, releaseYear, genres, duration, imdbRating, img, _id }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const navigate = useNavigate()
-    const {auth } =useContext(Context)
-
+    const {auth , setPassid ,passid} =useContext(Context)
+    const redirectTo = ()=>{
+        setPassid(_id);
+        if(!auth){
+            navigate('/login')
+            onOpen();
+        }
+        else{
+            // console.log("_id",_id)
+            console.log("paass",passid)
+            navigate(`/movies/${_id}`)
+        }
+    }
     return (
         <Box
             borderWidth="1px"
@@ -89,7 +100,7 @@ const MovieCard = ({ title, releaseYear, genres, duration, imdbRating, img, id }
                         ml={"100"}
                         transform="translateX(-50%)"
                         opacity="1"
-                        onClick={!auth ? onOpen : navigate('/movies/:id')}
+                        onClick={redirectTo}
                     // _groupHover={{ opacity: "1" }}
                     >
                         Rate the movie
