@@ -243,7 +243,7 @@ const MovieDetailsPage = () => {
                                                 </Button>
                                             </Box>
                                             {comments.length > 0 ? (
-                                                <>
+                                                <Box>
                                                 <Text color={"Black"}>Comments</Text>
                                                 <VStack align="stretch">
                                                     {comments.map((review) => (
@@ -270,7 +270,7 @@ const MovieDetailsPage = () => {
                                                         </Box>
                                                     ))}
                                                 </VStack>
-                                                </>
+                                                </Box>
                                             ) : (
                                                 <Text>No reviews yet.</Text>
                                             )}
