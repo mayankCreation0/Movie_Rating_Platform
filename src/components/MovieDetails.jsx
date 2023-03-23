@@ -243,6 +243,8 @@ const MovieDetailsPage = () => {
                                                 </Button>
                                             </Box>
                                             {comments.length > 0 ? (
+                                                <>
+                                                <Text color={"Black"}>Comments</Text>
                                                 <VStack align="stretch">
                                                     {comments.map((review) => (
                                                         <Box key={review._id} p="4" bg="gray.200">
@@ -268,6 +270,7 @@ const MovieDetailsPage = () => {
                                                         </Box>
                                                     ))}
                                                 </VStack>
+                                                </>
                                             ) : (
                                                 <Text>No reviews yet.</Text>
                                             )}
