@@ -58,7 +58,6 @@ const MovieDetailsPage = () => {
                     movieId
                 }
             })
-            // alert(res)
             setDelloading(false)
             toast({
                 title: 'Deleted Successfully',
@@ -70,7 +69,6 @@ const MovieDetailsPage = () => {
         } catch (error) {
             toast({
                 title: "Something went wrong",
-                // description: `Invalid input`,
                 status: "error",
                 duration: 5000,
                 isClosable: true,
@@ -239,7 +237,7 @@ const MovieDetailsPage = () => {
                                                     onClick={handleSubmit}
                                                     mt="2"
                                                 >
-                                                    Submit{btnloading ? <Spinner  /> : null}
+                                                    Submit{btnloading ? <Spinner /> : null}
                                                 </Button>
                                             </Box>
                                             {comments.length > 0 ? (
@@ -248,32 +246,29 @@ const MovieDetailsPage = () => {
                                                     boxShadow="0px 2px 4px rgba(0, 0, 0, 0.2)"
                                                     backgroundColor="#fff"
                                                     marginBottom="16px">
-                                                <Text color={"Black"}>Comments</Text>
-                                                <VStack align="stretch">
-                                                    {comments.map((review) => (
-                                                        <Box key={review._id} p="4" bg="gray.200">
-                                                            <Text fontStyle="italic" mb="2">
-                                                                {cookie.get('userid') === review.userId ? <Text color={"purple"} fontStyle={"cursive"}>you rated this</Text> : null } 
-                                                            </Text>
-                                                            <Text>{review.review}</Text>
-                                                            {movie.rating.map((review) => {
-                                                                return (
-                                                                    <>
-                                                                        {cookie.get('userid') === review.userId ?
-                                                                            <Button
-                                                                                size="sm"
-                                                                                colorScheme="red"
-                                                                                mt="2"
-                                                                                onClick={handleDeleteReview}
-                                                                            >
-                                                                                Delete{delloading ? <Spinner /> : null}
-                                                                            </Button> : null}
-                                                                    </>
-                                                                );
-                                                            })}
-                                                        </Box>
-                                                    ))}
-                                                </VStack>
+                                                    <Text color={"Black"}>Comments</Text>
+                                                    <VStack align="stretch">
+                                                        {comments.map((review) => (
+                                                            <Box key={review._id} p="4" bg="gray.200">
+                                                                <Text fontStyle="italic" mb="2">
+                                                                    {cookie.get('userid') === review.userId ? <Text color={"purple"} fontStyle={"cursive"}>you rated this</Text> : null}
+                                                                </Text>
+                                                                <Text>{review.review}</Text>
+                                                                {
+                                                                    cookie.get('userid') === review.userId ?
+                                                                        <Button
+                                                                            size="sm"
+                                                                            colorScheme="red"
+                                                                            mt="2"
+                                                                            onClick={handleDeleteReview}
+                                                                        >
+                                                                            Delete{delloading ? <Spinner /> : null}
+                                                                        </Button> :
+                                                                        null
+                                                                }
+                                                            </Box>
+                                                        ))}
+                                                    </VStack>
                                                 </Box>
                                             ) : (
                                                 <Text>No reviews yet.</Text>
@@ -284,7 +279,7 @@ const MovieDetailsPage = () => {
                             </Box>
                         </Flex>
                     </Box>
-                    <footer/>
+                    <footer />
                 </>
             }
         </>
