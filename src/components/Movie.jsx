@@ -1,9 +1,9 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { Grid, Heading, Spinner } from "@chakra-ui/react";
 import axios from "axios";
 import MovieCard from "./MovieCard";
 import Pagination from "./Pagination";
-import { Context } from "../context/Context";
+// import { Context } from "../context/Context";
 import Navbar from "./Navbar";
 import Banner from "./Banner";
 import Footer from "./Footer";
@@ -17,7 +17,7 @@ const Movie = () => {
 
     useEffect(() => {
         setLoading(true)
-        axios.get("http://localhost:8080/movies").then((response) => {
+        axios.get("https://amber-hippo-ring.cyclic.app/movies").then((response) => {
             setMovies(response.data.data);
             console.log(response.data.data);
             setDatalength(response.data.data.length);

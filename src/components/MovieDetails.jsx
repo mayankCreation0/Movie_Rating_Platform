@@ -30,7 +30,7 @@ const MovieDetailsPage = () => {
     
     const fetchdata = async () => {
         setLoading(true)
-        const data = await axios(`http://localhost:8080/movies/${id}`)
+        const data = await axios(`https://amber-hippo-ring.cyclic.app/movies/${id}`)
         setMovie(data.data);
         setLoading(false);
         setComments(data.data.reviews)
@@ -50,7 +50,7 @@ const MovieDetailsPage = () => {
         try {
             const userid = cookie.get('userid')
             const movieId = id;
-            await axios.delete(`http://localhost:8080/movies/delete/${userid}`, {
+            await axios.delete(`https://amber-hippo-ring.cyclic.app/movies/delete/${userid}`, {
                 data: {
                     movieId
                 }})
@@ -81,13 +81,13 @@ const MovieDetailsPage = () => {
             const userid = cookie.get('userid')
             {
                 const review = rating
-                await axios.put(`http://localhost:8080/movies/rate/${userid}`, {
+                await axios.put(`https://amber-hippo-ring.cyclic.app/movies/rate/${userid}`, {
                     movieId, review
                 })
                 console.log("rating" , movie)
             }
             const review = reviews
-            const reviewstatus = await axios.put(`http://localhost:8080/movies/review/${userid}`, {
+            const reviewstatus = await axios.put(`https://amber-hippo-ring.cyclic.app/movies/review/${userid}`, {
                 movieId, review
             })
             console.log("review" , reviewstatus)

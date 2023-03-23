@@ -44,7 +44,7 @@ const SignupPage = () => {
         try {
             setLoading(true);
             const res = await axios.post(
-                "http://localhost:8080/users/signup",
+                "https://amber-hippo-ring.cyclic.app/users/signup",
                 input
             );
             // console.log(res.status);

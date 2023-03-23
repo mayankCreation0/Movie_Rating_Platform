@@ -47,7 +47,7 @@ const LoginPage = () => {
         try {
             setLoading(true);
             const res = await axios.post(
-                "http://localhost:8080/users/login",
+                "https://amber-hippo-ring.cyclic.app/users/login",
                 input
             );
             console.log("res" , res.data.data._id);
