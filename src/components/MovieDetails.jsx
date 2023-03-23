@@ -25,7 +25,8 @@ const MovieDetailsPage = () => {
     const [rating, setRating] = useState(0);
     const [reviews, setReviews] = useState("");
     const [comments, setComments] = useState([]);
-    const [btnloading , setBtnloading]  =useState(false);
+    const [btnloading, setBtnloading] = useState(false);
+    const [delloading, setDelloading] = useState(false);
     const toast = useToast();
     const cookie = new Cookies()
 
@@ -49,7 +50,7 @@ const MovieDetailsPage = () => {
     };
     const handleDeleteReview = async () => {
         try {
-            setBtnloading(true);
+            setDelloading(true);
             const userid = cookie.get('userid')
             const movieId = id;
             await axios.delete(`https://amber-hippo-ring.cyclic.app/movies/delete/${userid}`, {
@@ -58,7 +59,7 @@ const MovieDetailsPage = () => {
                 }
             })
             // alert(res)
-            setBtnloading(false)
+            setDelloading(false)
             toast({
                 title: 'Deleted Successfully',
                 status: 'success',
@@ -238,7 +239,7 @@ const MovieDetailsPage = () => {
                                                     onClick={handleSubmit}
                                                     mt="2"
                                                 >
-                                                    Submit{btnloading ? <Spinner /> : null}
+                                                    Submit{btnloading ? <Spinner  /> : null}
                                                 </Button>
                                             </Box>
                                             {comments.length > 0 ? (
@@ -260,7 +261,7 @@ const MovieDetailsPage = () => {
                                                                                 mt="2"
                                                                                 onClick={handleDeleteReview}
                                                                             >
-                                                                                Delete{btnloading ? <Spinner /> : null}
+                                                                                Delete{delloading ? <Spinner /> : null}
                                                                             </Button> : null}
                                                                     </>
                                                                 );
