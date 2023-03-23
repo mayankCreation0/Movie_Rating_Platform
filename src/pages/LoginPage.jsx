@@ -70,6 +70,7 @@ const LoginPage = () => {
                 setAuth(true);
             }
             else {
+                setLoading(false);
                 toast({
                     title: "Invalid credentials",
                     description: "",
@@ -79,6 +80,7 @@ const LoginPage = () => {
                 });
             }
         } catch (e) {
+            setLoading(false);
             toast({
                 title: "Invalid credentials",
                 description: "",

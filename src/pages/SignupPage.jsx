@@ -61,6 +61,7 @@ const SignupPage = () => {
                 // fnauthstate();
             }
             else if (res.status === 500) {
+                setLoading(false)
                 toast({
                     title: "User Already Registered",
                     description: "",
@@ -70,6 +71,7 @@ const SignupPage = () => {
                 });
             }
         } catch (e) {
+            setLoading(false)
             toast({
                 title: "Something went wrong",
                 description: "",
@@ -78,6 +80,7 @@ const SignupPage = () => {
                 isClosable: true,
             });
             console.log(e);
+
         }
     };
     return (
