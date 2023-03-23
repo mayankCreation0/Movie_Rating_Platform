@@ -25,6 +25,7 @@ const MovieDetailsPage = () => {
     const [rating, setRating] = useState(0);
     const [reviews, setReviews] = useState("");
     const [comments, setComments] = useState([]);
+    const [btnloading , setBtnloading]  =useState(false);
     const toast = useToast();
     const cookie = new Cookies()
 
@@ -48,7 +49,7 @@ const MovieDetailsPage = () => {
     };
     const handleDeleteReview = async () => {
         try {
-            setLoading(true);
+            setBtnloading(true);
             const userid = cookie.get('userid')
             const movieId = id;
             await axios.delete(`https://amber-hippo-ring.cyclic.app/movies/delete/${userid}`, {
@@ -57,7 +58,7 @@ const MovieDetailsPage = () => {
                 }
             })
             // alert(res)
-            setLoading(false)
+            setBtnloading(false)
             toast({
                 title: 'Deleted Successfully',
                 status: 'success',
@@ -80,7 +81,7 @@ const MovieDetailsPage = () => {
 
         // send rating and review to backend
         try {
-            setLoading(true)
+            setBtnloading(true)
             const movieId = id;
             const userid = cookie.get('userid')
             {
@@ -94,7 +95,7 @@ const MovieDetailsPage = () => {
             const reviewstatus = await axios.put(`https://amber-hippo-ring.cyclic.app/movies/review/${userid}`, {
                 movieId, review
             })
-            setLoading(false)
+            setBtnloading(false)
             console.log("review", reviewstatus)
             if (reviewstatus.data.error === 'You have already reviewed this movie') {
                 toast({
@@ -237,7 +238,7 @@ const MovieDetailsPage = () => {
                                                     onClick={handleSubmit}
                                                     mt="2"
                                                 >
-                                                    Submit{loading ? <Spinner /> : null}
+                                                    Submit{btnloading ? <Spinner /> : null}
                                                 </Button>
                                             </Box>
                                             {comments.length > 0 ? (
@@ -259,7 +260,7 @@ const MovieDetailsPage = () => {
                                                                                 mt="2"
                                                                                 onClick={handleDeleteReview}
                                                                             >
-                                                                                Delete{loading ? <Spinner /> : null}
+                                                                                Delete{btnloading ? <Spinner /> : null}
                                                                             </Button> : null}
                                                                     </>
                                                                 );
