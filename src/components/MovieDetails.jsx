@@ -243,7 +243,11 @@ const MovieDetailsPage = () => {
                                                 </Button>
                                             </Box>
                                             {comments.length > 0 ? (
-                                                <Box>
+                                                <Box borderRadius="8px"
+                                                    padding="16px"
+                                                    boxShadow="0px 2px 4px rgba(0, 0, 0, 0.2)"
+                                                    backgroundColor="#fff"
+                                                    marginBottom="16px">
                                                 <Text color={"Black"}>Comments</Text>
                                                 <VStack align="stretch">
                                                     {comments.map((review) => (
