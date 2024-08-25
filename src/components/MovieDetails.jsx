@@ -32,7 +32,7 @@ const MovieDetailsPage = () => {
 
     const fetchdata = async () => {
         setLoading(true)
-        const data = await axios(`https://amber-hippo-ring.cyclic.app/movies/${id}`)
+        const data = await axios(`https://movie-rating-backend-dusky.vercel.app/movies/${id}`)
         setMovie(data.data);
         setLoading(false);
         setComments(data.data.reviews)
@@ -53,7 +53,7 @@ const MovieDetailsPage = () => {
             setDelloading(true);
             const userid = cookie.get('userid')
             const movieId = id;
-            await axios.delete(`https://amber-hippo-ring.cyclic.app/movies/delete/${userid}`, {
+            await axios.delete(`https://movie-rating-backend-dusky.vercel.app/movies/delete/${userid}`, {
                 data: {
                     movieId
                 }
@@ -85,13 +85,13 @@ const MovieDetailsPage = () => {
             const userid = cookie.get('userid')
             {
                 const review = rating
-                await axios.put(`https://amber-hippo-ring.cyclic.app/movies/rate/${userid}`, {
+                await axios.put(`https://movie-rating-backend-dusky.vercel.app/movies/rate/${userid}`, {
                     movieId, review
                 })
                 console.log("rating", movie)
             }
             const review = reviews
-            const reviewstatus = await axios.put(`https://amber-hippo-ring.cyclic.app/movies/review/${userid}`, {
+            const reviewstatus = await axios.put(`https://movie-rating-backend-dusky.vercel.app/movies/review/${userid}`, {
                 movieId, review
             })
             setBtnloading(false)

@@ -44,7 +44,7 @@ const SignupPage = () => {
         try {
             setLoading(true);
             const res = await axios.post(
-                "https://amber-hippo-ring.cyclic.app/users/signup",
+                "https://movie-rating-backend-dusky.vercel.app/users/signup",
                 input
             );
             // console.log(res.status);

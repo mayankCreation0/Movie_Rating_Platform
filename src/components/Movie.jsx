@@ -17,7 +17,7 @@ const Movie = () => {
 
     useEffect(() => {
         setLoading(true)
-        axios.get("https://amber-hippo-ring.cyclic.app/movies").then((response) => {
+        axios.get("https://movie-rating-backend-dusky.vercel.app/movies").then((response) => {
             setMovies(response.data.data);
             console.log(response.data.data);
             setDatalength(response.data.data.length);

@@ -47,7 +47,7 @@ const LoginPage = () => {
         try {
             setLoading(true);
             const res = await axios.post(
-                "https://amber-hippo-ring.cyclic.app/users/login",
+                "https://movie-rating-backend-dusky.vercel.app/users/login",
                 input
             );
             console.log("res" , res.data.data._id);
